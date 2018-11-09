@@ -41,6 +41,6 @@ public class SourceCodePanel extends JPanel {
     }
 
     public void setSource(String sourceName) throws Exception {
-        textArea.setText(FileUtils.readTextFile("src/main/resources/java/" + sourceName + ".java"));
+        textArea.setText(FileUtils.readTextFile("src/main/resources/sources/" + sourceName + ".java"));
     }
 }

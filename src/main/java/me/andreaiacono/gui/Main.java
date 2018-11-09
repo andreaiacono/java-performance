@@ -76,7 +76,7 @@ public class Main extends JFrame {
     }
 
     private void createSamplesItems(JMenu menu) {
-        File[] files = new File("src/main/resources/java").listFiles();
+        File[] files = new File("src/main/resources/sources").listFiles();
         Arrays
                 .stream(files)
                 .map(file -> file.getName().substring(0, file.getName().indexOf(".")))

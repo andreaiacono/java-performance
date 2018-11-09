@@ -8,7 +8,6 @@ import me.andreaiacono.utils.SwingUtils;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -71,18 +70,23 @@ public class Main extends JFrame {
         statusLabel = new JLabel(" Ready");
         statusLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
         getContentPane().add("South", statusLabel);
+
+        setSource(sampleMenu.getItem(0).getText());
         this.setFocusable(true);
     }
 
     private void createSamplesItems(JMenu menu) {
         File[] files = new File("src/main/resources/java").listFiles();
-        Arrays.stream(files).forEach(filename -> createMenuItem(menu, filename.getName().substring(0, filename.getName().indexOf(".")), this::setSource));
+        Arrays
+                .stream(files)
+                .map(file -> file.getName().substring(0, file.getName().indexOf(".")))
+                .forEach(filename -> createMenuItem(menu, filename, (event) -> setSource(event.getActionCommand())));
     }
 
-    private void setSource(ActionEvent event) {
+    private void setSource(String fileName) {
         try {
-            controlPanel.setFilename(event.getActionCommand());
-            sourceCodePanel.setSource(event.getActionCommand());
+            controlPanel.setFilename(fileName);
+            sourceCodePanel.setSource(fileName);
         }
         catch (Exception ex) {
             SwingUtils.showFormError(ex);
